@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Переключатель размера текста</title>
+    <style>
+        #resizableText {
+            font-size: 16px; 
+            transition: font-size 0.3s ease; 
+        }
+    </style>
+</head>
+<body>
+
+    <button id="textSizeButton">Увеличить текст</button>
+    <p id="resizableText">Этот текст будет изменять размер.</p>
+
+    <script>
+        const button = document.getElementById('textSizeButton');
+        const text = document.getElementById('resizableText');
+        let currentSize = 16; 
+        const increment = 4;
+        const maxSize = 32; 
+        const minSize = 12;  
+
+        button.addEventListener('click', () => {
+            currentSize += increment;
+            if (currentSize > maxSize) {
+                currentSize = minSize; 
+                button.textContent = "Увеличить текст"; 
+            }
+            text.style.fontSize = currentSize + 'px';
+
+            if (currentSize === maxSize) {
+              button.textContent = "Уменьшить текст";
+            } else if (currentSize === minSize) {
+              button.textContent = "Увеличить текст";
+            }
+
+        });
+    </script>
+
+</body>
+</html>
+
