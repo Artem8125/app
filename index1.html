@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Смена цвета фона</title>
+  <style>
+    body {
+      transition: background-color 0.5s ease; 
+    }
+  </style>
+</head>
+<body>
+
+  <button id="changeColorBtn">Сменить цвет фона</button>
+
+  <script>
+    const button = document.getElementById('changeColorBtn');
+    const body = document.body;
+
+    button.addEventListener('click', () => {
+      const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16); 
+      body.style.backgroundColor = randomColor;
+    });
+  </script>
+
+</body>
+</html>
+
+
+
