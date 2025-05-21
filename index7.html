@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Работа с событиями</title>
+    <style>
+        #mouseArea {
+            width: 200px;
+            height: 100px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Примеры событий</h1>
+
+    <button id="myButton">Кнопка</button>
+    <a href="https://example.com" id="myLink">Ссылка</a>
+    <input type="text" id="myInput" placeholder="Введите текст">
+
+    <form id="myForm" action="#">
+        <button type="submit">Отправить форму</button>
+    </form>
+
+    <div id="parent">
+        <button id="child">Вложенная кнопка</button>
+    </div>
+
+    <div id="mouseArea">Наведите сюда курсор</div>
+    <p id="mouseCoords"></p>
+
+    <button id="customEventButton">Инициировать кастомное событие</button>
+
+    <script>
+        const button = document.getElementById('myButton');
+        const link = document.getElementById('myLink');
+        const input = document.getElementById('myInput');
+        const form = document.getElementById('myForm');
+        const parent = document.getElementById('parent');
+        const child = document.getElementById('child');
+        const mouseArea = document.getElementById('mouseArea');
+        const mouseCoords = document.getElementById('mouseCoords');
+        const customEventButton = document.getElementById('customEventButton');
+
+        function logEventInfo(event) {
+            console.log("Тип события:", event.type);
+            console.log("Целевой элемент:", event.target);
+            console.log("Текущий элемент:", event.currentTarget);
+            console.log("Другие свойства:", event); 
+        }
+
+        button.addEventListener('click', function(event) {
+            logEventInfo(event);
+        });
+
+        link.addEventListener('click', function(event) {
+            logEventInfo(event);
+            event.preventDefault(); 
+            console.log("Переход по ссылке отменен.");
+        });
+
+        input.addEventListener('keypress', function(event) {
+            logEventInfo(event);
+            console.log("Нажатая клавиша:", event.key);
+        });
+
+        form.addEventListener('submit', function(event) {
+            logEventInfo(event);
+            event.preventDefault(); 
+            console.log("Отправка формы отменена.");
+        });
+
+        parent.addEventListener('click', function(event) {
+            console.log("Клик по родителю");
+        });
+
+        child.addEventListener('click', function(event) {
+            logEventInfo(event);
+            console.log("Клик по дочернему элементу.");
+            event.stopPropagation(); 
+        });
+
+        mouseArea.addEventListener('mousemove', function(event) {
+            mouseCoords.textContent = `X: ${event.clientX}, Y: ${event.clientY}`;
+        });
+
+        const myCustomEvent = new Event('myCustomEvent');
+
+        customEventButton.addEventListener('click', function() {
+            this.dispatchEvent(myCustomEvent); 
+        });
+
+        customEventButton.addEventListener('myCustomEvent', function(event) {
+            logEventInfo(event);
+            console.log("Обработчик кастомного события!");
+        });
+    </script>
+
+</body>
+</html>
